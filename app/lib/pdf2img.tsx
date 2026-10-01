@@ -14,7 +14,7 @@ async function loadPdfJs(): Promise<any> {
   if (loadPromise) return loadPromise;
 
   loadPromise = import("pdfjs-dist/build/pdf.mjs").then((lib) => {
-    const baseUrl = import.meta.env.BASE_URL;
+    const baseUrl = "/resumid/";
     const pdfWorkerSrc = `${baseUrl}${workerSrc.replace(/^\/+/, "")}`;
 
     console.log("PDF.js version:", lib.version);
