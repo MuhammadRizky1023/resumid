@@ -35,17 +35,18 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Prepare GitHub Pages
+        run: npm run prepare:pages
+
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v6
-      
-      - name: Prepare GitHub Pages fallback
-        run: cp build/client/index.html build/client/404.html
-      
+
       - name: Verify Pages artifact
         run: |
           test -d build/client
           test -f build/client/index.html
-          find build/client -maxdepth 2 -type f | head -20
+          test -f build/client/404.html
+          find build/client -maxdepth 2 -type f | head -30
 
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v4

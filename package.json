@@ -6,6 +6,7 @@
     "build": "react-router build",
     "dev": "react-router dev",
     "start": "react-router-serve ./build/server/index.js",
+    "prepare:pages": "node scripts/prepare-github-pages.mjs",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
