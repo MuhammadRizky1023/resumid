@@ -11,17 +11,18 @@ let loadPromise: Promise<any> | null = null;
 
 async function loadPdfJs(): Promise<any> {
   if (pdfjsLib) return pdfjsLib;
-
   if (loadPromise) return loadPromise;
 
   loadPromise = import("pdfjs-dist/build/pdf.mjs").then((lib) => {
-    console.log("PDF.js version:", lib.version);
-    console.log("PDF.js worker:", workerSrc);
+    const baseUrl = import.meta.env.BASE_URL;
+    const pdfWorkerSrc = `${baseUrl}${workerSrc.replace(/^\/+/, "")}`;
 
-    lib.GlobalWorkerOptions.workerSrc = workerSrc;
+    console.log("PDF.js version:", lib.version);
+    console.log("PDF.js worker:", pdfWorkerSrc);
+
+    lib.GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
 
     pdfjsLib = lib;
-
     return lib;
   });
 
@@ -58,7 +59,6 @@ export async function convertPdfToImage(
     });
 
     const canvas = document.createElement("canvas");
-
     const context = canvas.getContext("2d");
 
     canvas.width = viewport.width;
