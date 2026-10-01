@@ -4,6 +4,10 @@ import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => ({
   base: mode === "production" ? "/resumid/" : undefined,
+  build: {
+    outDir: "build",  // ← Explicitly set output directory
+    emptyOutDir: true,
+  },
   plugins: [tailwindcss(), reactRouter()],
   resolve: {
     tsconfigPaths: true,
